@@ -3,30 +3,30 @@
 # fetchFastq.sh must be run first!
 
 #This command imports the FASTQ files into a QIIME artifact
-#qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path sequence_data/import_to_qiime --output-path reads
+qiime tools import --type 'SampleData[PairedEndSequencesWithQuality]' --input-path sequence_data/import_to_qiime --output-path reads
 
 #Using DADA2 to analyze quality scores of 10 random samples
-#qiime demux summarize --p-n 10000 --i-data reads.qza --o-visualization qual_viz
+qiime demux summarize --p-n 10000 --i-data reads.qza --o-visualization qual_viz
 
 #Denoising with DADA2. Using quality score visualizations, you can choose trunc-len-f and trunc-len-r (note: sequences < trunc-len in length are discarded!)
 # The drop-off for the forward reads was not so bad, but there is a significant drop-off in quality for the reverse reads, so let's trim 10bp
-#qiime dada2 denoise-paired --i-demultiplexed-seqs reads.qza --o-table table --o-representative-sequences representative_sequences --p-trunc-len-f 150 --p-trunc-len-r 140 --p-trim-left-f 19 --p-trim-left-r 20 --p-n-threads 3
+qiime dada2 denoise-paired --i-demultiplexed-seqs reads.qza --o-table table --o-representative-sequences representative_sequences --p-trunc-len-f 150 --p-trunc-len-r 140 --p-trim-left-f 19 --p-trim-left-r 20 --p-n-threads 3
 
 #This visualization shows us the sequences/sample spread
-#qiime feature-table summarize --i-table table.qza --o-visualization table_summary
+qiime feature-table summarize --i-table table.qza --o-visualization table_summary
 
 #Filter out sequences with few samples
-#qiime feature-table filter-samples --i-table table.qza --p-min-frequency 5000 --o-filtered-table filtered_table
+qiime feature-table filter-samples --i-table table.qza --p-min-frequency 5000 --o-filtered-table filtered_table
 
-#qiime feature-table summarize --i-table filtered_table.qza --o-visualization filtered_table_summary
+qiime feature-table summarize --i-table filtered_table.qza --o-visualization filtered_table_summary
 
 #QIIME group has a 515f 806r 99% pre-clustered GreenGenes database
-#wget https://data.qiime2.org/2018.2/common/gg-13-8-99-515-806-nb-classifier.qza
+wget https://data.qiime2.org/2018.2/common/gg-13-8-99-515-806-nb-classifier.qza
 #If you have a large amount of RAM (32GB or greater), try the larger SILVA database:
 #wget https://data.qiime2.org/2018.2/common/silva-119-99-515-806-nb-classifier.qza
 
 #Classify against it with Naive Bayes
-#qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads representative_sequences.qza --o-classification taxonomy
+qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads representative_sequences.qza --o-classification taxonomy
 
 #Taxa bar plots
 qiime taxa barplot --i-table filtered_table.qza --i-taxonomy taxonomy.qza --m-metadata-file sequence_data/METADATA.txt --o-visualization taxa-bar-plots
