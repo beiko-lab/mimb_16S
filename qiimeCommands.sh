@@ -10,7 +10,7 @@ qiime demux summarize --p-n 10000 --i-data reads.qza --o-visualization qual_viz
 
 #Denoising with DADA2. Using quality score visualizations, you can choose trunc-len-f and trunc-len-r (note: sequences < trunc-len in length are discarded!)
 # The drop-off for the forward reads was not so bad, but there is a significant drop-off in quality for the reverse reads, so let's trim 10bp
-qiime dada2 denoise-paired --i-demultiplexed-seqs reads.qza --o-table table --o-representative-sequences representative_sequences --p-trunc-len-f 150 --p-trunc-len-r 140 --p-trim-left-f 19 --p-trim-left-r 20 --p-n-threads 3
+qiime dada2 denoise-paired --i-demultiplexed-seqs reads.qza --o-table table --o-representative-sequences representative_sequences --o-denoising-stats denoise_stats --p-trunc-len-f 150 --p-trunc-len-r 140 --p-trim-left-f 19 --p-trim-left-r 20 --p-n-threads 3
 
 #This visualization shows us the sequences/sample spread
 qiime feature-table summarize --i-table table.qza --o-visualization table_summary
