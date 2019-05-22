@@ -21,9 +21,9 @@ qiime feature-table filter-samples --i-table table.qza --p-min-frequency 5000 --
 qiime feature-table summarize --i-table filtered_table.qza --o-visualization filtered_table_summary
 
 #QIIME group has a 515f 806r 99% pre-clustered GreenGenes database
-wget https://data.qiime2.org/2018.4/common/gg-13-8-99-515-806-nb-classifier.qza
+wget https://data.qiime2.org/2019.4/common/gg-13-8-99-515-806-nb-classifier.qza
 #If you have a large amount of RAM (32GB or greater), try the larger SILVA database:
-#wget https://data.qiime2.org/2018.4/common/silva-119-99-515-806-nb-classifier.qza
+#wget https://data.qiime2.org/2019.4/common/silva-132-99-515-806-nb-classifier.qza
 
 #Classify against it with Naive Bayes
 qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-515-806-nb-classifier.qza --i-reads representative_sequences.qza --o-classification taxonomy
