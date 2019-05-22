@@ -2,7 +2,7 @@
 
 ### Required Software
 
-Before running through this tutorial, you must have QIIME2 installed and activated. This has been tested with the QIIME2 2018.4 release, available at https://qiime2.org.
+Before running through this tutorial, you must have QIIME2 installed and activated. This has been tested with the QIIME2 2019.4 release, available at https://qiime2.org.
 
 ### Running the Scripts
 
